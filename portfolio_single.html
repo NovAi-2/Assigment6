@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My jQuery Portfolio</title>
+  <style>
+body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+section { border: 1px solid #ccc; border-radius: 6px; padding: 15px; margin-bottom: 15px; }
+button { margin: 4px 2px; padding: 6px 10px; cursor: pointer; }
+.panel-title { cursor: pointer; background: #eee; padding: 8px; color: #000; }
+.panel { display: none; padding: 8px; }
+.error { color: red; }
+.photo { border-radius: 6px; }
+.bar-bg { background: #ddd; width: 100%; height: 18px; border-radius: 4px; }
+.bar { background: #4caf50; width: 0; height: 100%; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+  <!-- Task 1: Selectors & CSS -->
+  <section id="profile">
+    <h1 id="title">Welcome to My Portfolio</h1>
+    <h2 class="headline">Aspiring Software Engineer</h2>
+    <p class="intro">Hi! I'm Van Alexander, a student of group 2540 SE.</p>
+    <button id="changeText">Change Headline (.text)</button>
+    <button id="changeHtml">Change Intro (.html)</button>
+    <button id="lightBtn">Light Theme</button>
+    <button id="darkBtn">Dark Theme</button>
+  </section>
+
+  <!-- Task 2: Visibility -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I study software engineering and enjoy building web projects.</p>
+    <p id="status">Currently learning jQuery!</p>
+    <ul id="facts">
+      <li>I like programming and video games.</li>
+      <li>My goal is to become a full-stack developer.</li>
+      <li>I enjoy listening to music while coding.</li>
+    </ul>
+    <button id="hideBtn">Hide</button>
+    <button id="showBtn">Show</button>
+    <button id="toggleBtn">Toggle</button>
+  </section>
+
+  <!-- Task 3: Fade -->
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='%234a90d9'/><text x='150' y='160' fill='white' font-size='30'>Profile</text></svg>" alt="Profile" class="photo" width="200">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='%23e67e22'/><text x='150' y='160' fill='white' font-size='30'>Hobby</text></svg>" alt="Hobby" class="photo" width="200">
+    <br>
+    <button id="fadeInBtn">Fade In</button>
+    <button id="fadeOutBtn">Fade Out</button>
+    <button id="fadeToggleBtn">Fade Toggle</button>
+  </section>
+
+  <!-- Task 4: Slide -->
+  <section id="favorites">
+    <h2>My Favorites</h2>
+    <h3 class="panel-title">My Favorite Music</h3>
+    <div class="panel"><p>Lo-fi and rock.</p></div>
+    <h3 class="panel-title">My Favorite Movie</h3>
+    <div class="panel"><p>Interstellar.</p></div>
+    <h3 class="panel-title">My Favorite Subject</h3>
+    <div class="panel"><p>Web Technologies.</p></div>
+    <button id="slideUpBtn">Slide Up All</button>
+    <button id="slideDownBtn">Slide Down All</button>
+  </section>
+
+  <!-- Task 5: Add & Remove -->
+  <section id="skillsSection">
+    <h2>Technical Skills</h2>
+    <ul id="skillList">
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>Java</li>
+    </ul>
+    <input type="text" id="skillInput" placeholder="Enter a skill">
+    <button id="addSkill">Add Skill</button>
+    <button id="prependSkill">Prepend Skill</button>
+    <button id="removeSkill">Remove Skill</button>
+    <p id="skillError" class="error"></p>
+  </section>
+
+  <!-- Task 6: Attributes -->
+  <section id="links">
+    <h2>My Links</h2>
+    <a id="socialLink" href="https://github.com" target="_blank">GitHub</a>
+    <button id="changeLink">Change Link to LinkedIn</button>
+  </section>
+
+  <!-- Task 7: Form -->
+  <section id="formSection">
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Name">
+      <input type="email" id="email" placeholder="Email">
+    </form>
+    <p>Name: <span id="outName"></span></p>
+    <p>Email: <span id="outEmail"></span></p>
+  </section>
+
+  <!-- Task 8: Animation -->
+  <section id="barsSection">
+    <h2>Skill Levels</h2>
+    <div class="skill">HTML <div class="bar-bg"><div class="bar" data-level="90%"></div></div></div>
+    <div class="skill">JavaScript <div class="bar-bg"><div class="bar" data-level="65%"></div></div></div>
+    <div class="skill">Java <div class="bar-bg"><div class="bar" data-level="75%"></div></div></div>
+    <button id="animateBtn">Animate My Skills</button>
+  </section>
+
+  <!-- jQuery from CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+// Task 0: Setup
+$(document).ready(function () {
+  console.log("jQuery is ready!");
+
+  // Task 1: Selectors & CSS
+  $("h1").css("color", "darkblue");              // tag selector
+  $("#title").css("text-align", "center");        // ID selector
+  $(".intro").css("font-style", "italic");        // class selector
+
+  $("#changeText").click(function () {
+    $(".headline").text("Future Full-Stack Developer");
+  });
+  $("#changeHtml").click(function () {
+    $(".intro").html("Hi! I'm <b>Van Alexander</b>, studying <i>Software Engineering</i>.");
+  });
+  $("#lightBtn").click(function () {
+    $("body").css({ "background-color": "white", "color": "black" });
+  });
+  $("#darkBtn").click(function () {
+    $("body").css({ "background-color": "#222", "color": "white" });
+  });
+
+  // Task 2: Visibility
+  $("#hideBtn").click(function () { $("#status, #facts").hide(); });
+  $("#showBtn").click(function () { $("#status, #facts").show(); });
+  $("#toggleBtn").click(function () { $("#status, #facts").toggle(); });
+
+  // Task 3: Fade
+  $("#fadeInBtn").click(function () { $(".photo").fadeIn(); });
+  $("#fadeOutBtn").click(function () { $(".photo").fadeOut(); });
+  $("#fadeToggleBtn").click(function () { $(".photo").fadeToggle(); });
+
+  // Task 4: Slide
+  $(".panel-title").click(function () {
+    $(this).next(".panel").slideToggle();
+  });
+  $("#slideUpBtn").click(function () { $(".panel").slideUp(); });
+  $("#slideDownBtn").click(function () { $(".panel").slideDown(); });
+
+  // Task 5: Add & Remove
+  function getSkill() {
+    var skill = $("#skillInput").val().trim();
+    if (skill === "") {                           // prevent empty skills
+      $("#skillError").text("Please enter a skill!");
+      return null;
+    }
+    $("#skillError").text("");
+    $("#skillInput").val("");
+    return skill;
+  }
+  $("#addSkill").click(function () {
+    var skill = getSkill();
+    if (skill) $("#skillList").append("<li>" + $("<div>").text(skill).html() + "</li>");
+  });
+  $("#prependSkill").click(function () {
+    var skill = getSkill();
+    if (skill) $("#skillList").prepend("<li>" + $("<div>").text(skill).html() + "</li>");
+  });
+  $("#removeSkill").click(function () {
+    $("#skillList li:last").remove();             // removes the last skill
+  });
+
+  // Task 6: Attributes
+  $("#changeLink").click(function () {
+    $("#socialLink").attr("href", "https://www.linkedin.com").text("LinkedIn");
+  });
+
+  // Task 7: Form interaction (live output)
+  $("#name").on("input", function () { $("#outName").text($(this).val()); });
+  $("#email").on("input", function () { $("#outEmail").text($(this).val()); });
+
+  // Task 8: Animation (skill bars)
+  var expanded = false;
+  $("#animateBtn").click(function () {
+    $(".bar").each(function () {
+      var target = expanded ? "0%" : $(this).data("level");
+      $(this).animate({ width: target }, 1000);
+    });
+    expanded = !expanded;
+  });
+});
+</script>
+</body>
+</html>
